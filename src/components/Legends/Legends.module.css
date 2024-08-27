@@ -1,0 +1,33 @@
+/* Legends.module.css */
+
+.legendsContainer {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: 5px;
+  width: 300px;
+  margin-bottom: 10px;
+  border: 2px solid white;
+  background-color: #2d2d32;
+}
+
+.legendsSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.legendsText {
+  font-size: 8px;
+  margin: 5px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.legendsDivider {
+  border-left: 1px solid #ccc;
+  height: 100%;
+  margin: 0 5px;
+}

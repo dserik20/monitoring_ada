@@ -1,0 +1,37 @@
+.tableContainer {
+  border: 1px solid #50505a;
+  background-color: #004d00;
+  width: 150px;
+  color: white;
+  overflow: hidden;
+}
+
+.tableHeader {
+  background-color: #50505a;
+  padding: 5px;
+  font-size: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #50505a;
+}
+
+.tableBody {
+  background-color: #004d00;
+}
+
+.tableRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 7px;
+  padding: 5px 10px;
+  border-bottom: 1px solid #50505a;
+}
+
+.tableCell {
+  flex: 1;
+  text-align: center;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}

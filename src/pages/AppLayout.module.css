@@ -1,0 +1,70 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100vh;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  height: calc(100% - 90px);
+}
+
+.chartContainer,
+.oilLossContainer,
+.agzuContainer {
+  background-color: #2d2d32;
+  padding: 20px;
+  border-radius: 5px;
+  /* overflow: auto; */
+}
+
+.gridAndDetailsContainer {
+  background-color: #2d2d32;
+  padding: 20px;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.chartContainer {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.oilLossContainer {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.gridAndDetailsContainer {
+  grid-area: 2 / 1 / 3 / 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.legendsAndDetailsContainer {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agzuContainer {
+  grid-area: 2 / 2 / 3 / 3; /* Bottom-right */
+}
+
+.sectionSpacing {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.chartAxisText {
+  fill: white !important;
+}

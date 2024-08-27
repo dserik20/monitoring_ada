@@ -1,0 +1,31 @@
+<svg width="1800" height="928" xmlns="http://www.w3.org/2000/svg">
+      <line x1="99" y1="352" x2="99" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="99" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="363" y1="352" x2="363" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="363" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="631" y1="352" x2="631" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="631" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="895" y1="352" x2="895" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="895" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="1163" y1="352" x2="1163" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="1163" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="1427" y1="352" x2="1427" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="1427" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="1695" y1="352" x2="1695" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="1695" y2="407" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="99" y1="720" x2="99" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="99" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="363" y1="720" x2="363" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="363" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="631" y1="720" x2="631" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="631" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="895" y1="720" x2="895" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="895" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="1163" y1="720" x2="1163" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="1163" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="1427" y1="720" x2="1427" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="1427" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="1695" y1="720" x2="1695" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <line x1="900" y1="540" x2="1695" y2="665" stroke="rgb(80, 80, 90)" strokeWidth="2" />
+      <circle cx="900" cy="540" r="155" fill="#50505A"></circle>
+    </svg>

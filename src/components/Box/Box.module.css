@@ -1,0 +1,36 @@
+.boxContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the .box and .boxNumber horizontally */
+}
+
+.box {
+  background-color: #50505a;
+  border: 1px solid #ffffff;
+  width: 60px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.boxText {
+  font-size: 10px;
+  margin: 2px 0;
+}
+
+.boxNumber {
+  width: 60px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ffffff;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 2px;
+}

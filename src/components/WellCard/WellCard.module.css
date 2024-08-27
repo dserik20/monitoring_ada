@@ -1,0 +1,39 @@
+/* WellCard.module.css */
+
+@keyframes flicker {
+  0%,
+  100% {
+    background-color: #ff0000;
+  }
+  50% {
+    background-color: #50505a;
+  }
+}
+
+.redCard {
+  animation: flicker 2s infinite;
+}
+
+.wellCard {
+  background-color: #50505a;
+  /* width: 100px; */
+  /* height: 60px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+.cardRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 10px;
+}
+
+.cardHeader {
+  font-size: 12px;
+  margin: 2px 0;
+}

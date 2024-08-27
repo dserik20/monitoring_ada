@@ -1,0 +1,11 @@
+.labelContainer {
+  background-color: #2d2d32;
+  color: #ffffff;
+  padding: 5px 10px;
+  border: 1px solid #888888;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

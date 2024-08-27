@@ -1,0 +1,15 @@
+.indicatorContainer {
+  display: flex;
+  align-items: center;
+}
+
+.indicatorBox {
+  background-color: #004d00;
+  color: #ffffff;
+  padding: 2px 5px;
+  margin-right: 2px;
+  font-size: 6px;
+  text-align: center;
+  align-items: center;
+  width: 15px;
+}

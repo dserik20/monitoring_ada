@@ -1,0 +1,95 @@
+.appBar {
+  background-color: #2d2d32;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menuIcon {
+  font-size: 24px;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 14px;
+  color: white;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: white;
+  margin-top: 4px;
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px;
+}
+
+.date,
+.time {
+  color: white;
+  font-size: 14px;
+}
+
+.dataDisplayContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 16px;
+}
+
+.actionContainer {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 10px;
+  margin-right: 20px;
+}
+
+.abcButton {
+  background-color: #50505a;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.abcButton:hover {
+  background-color: #646464;
+}
+
+.settingsIcon {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background-color: #646464;
+  margin: 0 10px;
+}

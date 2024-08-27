@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  background-color: #444;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 90px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.button.active {
+  background-color: #4caf50;
+}
+
+.button:hover {
+  background-color: #666;
+}

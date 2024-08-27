@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.barContainer {
+  background-color: #e8e3cf;
+  position: relative;
+  border: 1px solid #50505a;
+}
+
+.progress {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.label {
+  display: flex;
+  position: absolute;
+  font-size: 8px;
+  color: #000;
+  background-color: #e8e3cf;
+  padding: 1px 1px;
+  text-align: center;
+  white-space: nowrap; /* Prevents text from wrapping */
+}

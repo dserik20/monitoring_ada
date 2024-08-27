@@ -1,0 +1,27 @@
+/* SimpleTable.module.css */
+
+.container {
+  background-color: #50505a;
+  color: white;
+  width: 125px;
+}
+
+.header {
+  background-color: #404040;
+  padding: 2px 2px;
+  text-align: center;
+  font-weight: bold;
+  /* border-bottom: 1px solid #ffffff; */
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.row {
+  padding: 2px 0;
+  display: flex;
+  justify-content: space-between;
+}

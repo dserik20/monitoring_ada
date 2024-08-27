@@ -1,0 +1,17 @@
+.square {
+  background-color: #50505a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #2d2d32;
+  transition: background-color 0.3s ease;
+}
+
+.square.active {
+  background-color: #17678b; /* Active color */
+}
+
+.icon img {
+  width: 20px; /* Adjust the size of the icon */
+  height: 20px;
+}

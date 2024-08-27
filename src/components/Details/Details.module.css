@@ -1,0 +1,33 @@
+/* Details.module.css */
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.row {
+  display: flex;
+  width: 250px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.textWithRect {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.rect {
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+}
+
+.text {
+  font-size: 10px;
+  margin: 0;
+  flex-grow: 1;
+  word-wrap: break-word;
+}
