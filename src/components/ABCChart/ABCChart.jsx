@@ -11,11 +11,10 @@ const ABCChart = () => {
   useLayoutEffect(() => {
     let root = am5.Root.new("chartdiv");
 
-    // Set chart background color to white
     root.container.set(
       "background",
       am5.Rectangle.new(root, {
-        fill: am5.color(0xffffff),
+        fill: am5.color(0x2d2d32),
       })
     );
 
@@ -30,7 +29,6 @@ const ABCChart = () => {
         pinchZoomX: true,
       })
     );
-
     let xAxis = chart.xAxes.push(
       am5xy.ValueAxis.new(root, {
         min: -100,
@@ -40,6 +38,13 @@ const ABCChart = () => {
         }),
       })
     );
+    xAxis.get("renderer").labels.template.setAll({
+      fill: am5.color(0xffffff), // Set label color to white
+    });
+    xAxis.get("renderer").grid.template.setAll({
+      stroke: am5.color(0xffffff), // Set grid line color to white
+      strokeOpacity: 0.5,
+    });
 
     let yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
@@ -48,11 +53,16 @@ const ABCChart = () => {
         renderer: am5xy.AxisRendererY.new(root, {}),
       })
     );
+    yAxis.get("renderer").labels.template.setAll({
+      fill: am5.color(0xffffff),
+    });
+    yAxis.get("renderer").grid.template.setAll({
+      stroke: am5.color(0xffffff),
+      strokeOpacity: 0.5,
+    });
 
-    // Define the four areas with different colors
-    const colors = ["#CC9933 ", "#D1E7DD", "#FFF3CD", "#CFE2FF"];
+    const colors = ["#CC9933 ", "#E9DB9C", "#64B3B6", "#85BFC8"];
 
-    // Create four series to define the colored areas
     const areas = [
       { x1: -100, y1: 0, x2: 0, y2: 100, color: colors[0] }, // Top-left
       { x1: 0, y1: 0, x2: 100, y2: 100, color: colors[1] }, // Top-right
@@ -71,7 +81,7 @@ const ABCChart = () => {
         })
       );
 
-      areaSeries.fills.template.setAll({ fillOpacity: 0.5, visible: true });
+      areaSeries.fills.template.setAll({ fillOpacity: 0.8, visible: true });
       areaSeries.strokes.template.set("forceHidden", true);
 
       areaSeries.data.setAll([
@@ -129,10 +139,13 @@ const ABCChart = () => {
 
     updateData(currentYear); // Initial data set
 
+    // Hide the amCharts logo
+    root._logo.dispose();
+
     return () => {
       root.dispose();
     };
-  }, [currentYear]); // Re-run when currentYear changes
+  }, [currentYear]);
 
   return (
     <div>
@@ -143,7 +156,9 @@ const ABCChart = () => {
         step={1}
         value={currentYear}
         onChange={(value) => setCurrentYear(value)}
-        renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+        renderThumb={(props, state) => (
+          <div {...props} data-content={state.valueNow}></div>
+        )}
         className={styles.slider}
         thumbClassName={styles.sliderThumb}
         trackClassName={styles.sliderTrack}

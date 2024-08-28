@@ -12,8 +12,8 @@ export default function AgzuDiagram() {
         <Box
           boxText1="BSK_0111"
           boxText2="5.00"
-          top={65}
-          left={106}
+          top={20}
+          left={15}
           number={2}
         />
         <Box

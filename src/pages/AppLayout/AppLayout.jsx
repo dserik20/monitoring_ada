@@ -6,9 +6,9 @@ import AppNav from "../../components/AppNav/AppNav";
 import Legends from "../../components/Legends/Legends";
 import Details from "../../components/Details/Details";
 import SelectFond from "../../components/SelectFond/SelectFond";
-import OilLoss from "../../components/Oilloss";
 import AGZU from "../../components/AGZU/AGZU";
 import VRP from "../../components/VRP/VRP";
+import KPI from "../../components/KPI/KPI";
 
 export default function AppLayout() {
   const [fond, setFond] = React.useState(0);
@@ -21,7 +21,7 @@ export default function AppLayout() {
           <Chart />
         </div>
         <div className={styles.oilLossContainer}>
-          <OilLoss />
+          <KPI />
         </div>
         <div className={styles.gridAndDetailsContainer}>
           <div className={styles.legendsAndDetailsContainer}>

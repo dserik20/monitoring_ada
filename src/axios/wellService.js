@@ -4,6 +4,15 @@ export const fetchWells = () => {
   return api.get("/wells");
 };
 
+// export const fetchWells = (wellType = "production", fieldId = 1) => {
+//   return api.get(`/wells`, {
+//     params: {
+//       wellType: wellType,
+//       fieldId: fieldId,
+//     },
+//   });
+// };
+
 export const fetchWellById = (id) => {
   return api.get(`/wells/${id}`);
 };

@@ -7,6 +7,7 @@
 .slider {
   width: 80%;
   margin: 20px auto;
+  position: relative;
 }
 
 .sliderTrack {
@@ -21,4 +22,24 @@
   background: #007bff;
   border-radius: 50%;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  position: relative;
+  top: -10px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.sliderThumb::after {
+  content: attr(data-content); /* Use data-content attribute for numbers */
+  position: absolute;
+  top: -25px; /* Adjust position to be above the thumb */
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
 }

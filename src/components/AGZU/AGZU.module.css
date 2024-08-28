@@ -1,7 +1,14 @@
+.upperDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* gap: 5px; */
+}
+
 .container {
   display: flex;
   justify-content: space-between;
-  /* gap: 5px; */
+  gap: 5px;
 }
 
 .button {
@@ -11,7 +18,7 @@
   text-align: center;
   border-radius: 4px;
   cursor: pointer;
-  width: 90px;
+  width: 70px;
   height: 40px;
   display: flex;
   align-items: center;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./AppNav.module.css";
 import DataDisplay from "../DataDisplay/DataDisplay";
+import { NavLink } from "react-router-dom";
 
 export default function AppNav() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -34,11 +35,13 @@ export default function AppNav() {
         </div>
         <div className={styles.divider} />
         <div className={styles.dataDisplayContainer}>
-          <DataDisplay label="Замерная добыча" value="0.00" />
-          <DataDisplay label="Парковая добыча" value="0.00" />
           <DataDisplay label="10 последних ГТМ/КРС" />
         </div>
         <div className={styles.actionContainer}>
+          <NavLink to="/">Основная</NavLink>
+          <NavLink to="/abc">ABC</NavLink>
+          <NavLink to="/scheme">Схема</NavLink>
+          <NavLink to="/oil">Нефть</NavLink>
           <span className={styles.settingsIcon}>&#9881;</span>
         </div>
       </div>

@@ -1,14 +1,14 @@
 import React from "react";
-import Chart from "../../components/Chart/Chart";
 import AppNav from "../../components/AppNav/AppNav";
 import Legends from "../../components/Legends/Legends";
 import Details from "../../components/Details/Details";
 import SelectFond from "../../components/SelectFond/SelectFond";
-import OilLoss from "../../components/Oilloss";
+import Grid from "../../components/Grid/Grid";
 import AGZU from "../../components/AGZU/AGZU";
 import VRP from "../../components/VRP/VRP";
 import styles from "./ABCLayout.module.css";
 import ABCChart from "../../components/ABCChart/ABCChart";
+import WellTable from "../../components/WellTable/WellTable";
 
 export default function ABCLayout() {
   const [fond, setFond] = React.useState(0);
@@ -20,8 +20,8 @@ export default function ABCLayout() {
         <div className={styles.chartContainer}>
           <ABCChart />
         </div>
-        <div className={styles.oilLossContainer}>
-          <OilLoss />
+        <div className={styles.graphContainer}>
+          <WellTable />
         </div>
         <div className={styles.gridAndDetailsContainer}>
           <div className={styles.legendsAndDetailsContainer}>
@@ -31,11 +31,9 @@ export default function ABCLayout() {
               <Details />
             </div>
           </div>
-          {/* <Grid /> */}
+          <Grid />
         </div>
-        <div className={styles.agzuContainer}>
-          {fond === 0 ? <AGZU /> : <VRP />}
-        </div>
+        <div className={styles.wellTableContainer}>{<WellTable />}</div>
       </div>
     </div>
   );

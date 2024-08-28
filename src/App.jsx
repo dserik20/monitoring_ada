@@ -1,10 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "./pages/AppLayout/AppLayout";
-import Diagram from "./components/Diagram/Diagram";
-import WellList from "./components/WellList";
-import ModalTest from "./components/ModalTest";
-import ABCChart from "./components/ABCChart/ABCChart";
 import ABCLayout from "./pages/ABC/ABCLayout";
+import Diagram from "./components/Diagram/Diagram";
+import ModalTest from "./components/ModalTest";
+import OilLoss from "./components/OilLoss";
 
 function App() {
   return (
@@ -14,7 +13,9 @@ function App() {
           <Route index element={<AppLayout />} />
           {/* <Route index element={<WellList />} /> */}
           {/* <Route index element={<ModalTest />} /> */}
-          <Route path="abc" element={<ABCLayout />} />
+          {/* <Route path="abc" element={<ABCLayout />} /> */}
+          <Route path="scheme" element={<Diagram />} />
+          <Route path="oil" element={<OilLoss />} />
         </Routes>
       </BrowserRouter>
     </>

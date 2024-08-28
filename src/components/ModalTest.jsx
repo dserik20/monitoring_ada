@@ -18,8 +18,8 @@ const ModalTest = () => {
 
       <Modal isOpen={showModal} onClose={toggleModal}>
         {/* <ABCChart /> */}
-        {/* <AgzuDiagram/> */}
-        <Grid />
+        <AgzuDiagram />
+        {/* <Grid /> */}
       </Modal>
     </div>
   );
