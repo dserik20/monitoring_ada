@@ -10,7 +10,6 @@ export default function AppNav() {
     return () => clearInterval(timer);
   }, []);
 
-  // Format time without seconds
   const formattedTime = currentTime.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -40,7 +39,6 @@ export default function AppNav() {
           <DataDisplay label="10 последних ГТМ/КРС" />
         </div>
         <div className={styles.actionContainer}>
-          <button className={styles.abcButton}>ABC</button>
           <span className={styles.settingsIcon}>&#9881;</span>
         </div>
       </div>

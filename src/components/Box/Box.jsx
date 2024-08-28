@@ -11,7 +11,7 @@ export default function Box({ boxText1, boxText2, top, left, number }) {
         <div className={styles.boxText}>{boxText1}</div>
         <div className={styles.boxText}>{boxText2}</div>
       </div>
-      <div className={styles.boxNumber}>{number}</div>
+      {number ? <div className={styles.boxNumber}>{number}</div> : null}
     </div>
   );
 }

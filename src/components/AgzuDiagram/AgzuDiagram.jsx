@@ -27,7 +27,7 @@ export default function AgzuDiagram() {
           boxText1="BSK_0115"
           boxText2="8.00"
           top={65}
-          left={306}
+          left={309}
           number={4}
         />
         <Box
@@ -55,49 +55,49 @@ export default function AgzuDiagram() {
         <Box
           boxText1="BSK_0105"
           boxText2="24.02"
-          top={267}
+          top={275}
           left={6}
           number={8}
         />
         <Box
           boxText1="BSK_0109"
           boxText2="10.63"
-          top={267}
+          top={275}
           left={106}
           number={9}
         />
         <Box
           boxText1="BSK_0128"
           boxText2="26.00"
-          top={267}
+          top={275}
           left={206}
           number={10}
         />
         <Box
           boxText1="BSK_0106"
           boxText2="9.57"
-          top={267}
-          left={306}
+          top={275}
+          left={309}
           number={11}
         />
         <Box
           boxText1="BSK_0106"
           boxText2="9.57"
-          top={267}
+          top={275}
           left={406}
           number={12}
         />
         <Box
           boxText1="BSK_0106"
           boxText2="9.57"
-          top={267}
+          top={275}
           left={506}
           number={13}
         />
         <Box
           boxText1="BSK_0106"
           boxText2="9.57"
-          top={267}
+          top={275}
           left={606}
           number={14}
         />
@@ -107,6 +107,12 @@ export default function AgzuDiagram() {
           <div className={styles.circleText}>0 М³/СУТ</div>
           <div className={styles.circleSubText}>0 мПа</div>
         </div>
+
+        <div
+          className={styles.line}
+          style={{ top: "208px", left: "403px" }}
+        ></div>
+        <Box boxText1="на ППН" top={188} left={600} />
       </div>
     </div>
   );

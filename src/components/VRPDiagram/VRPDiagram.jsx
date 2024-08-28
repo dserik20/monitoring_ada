@@ -71,6 +71,12 @@ export default function VRPDiagram() {
           <div className={styles.circleText}>0 М³/СУТ</div>
           <div className={styles.circleSubText}>0 мПа</div>
         </div>
+
+        <div
+          className={styles.line}
+          style={{ top: "208px", left: "403px" }}
+        ></div>
+        <Box boxText1="на ППН" top={188} left={600} />
       </div>
     </div>
   );

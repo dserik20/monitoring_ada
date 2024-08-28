@@ -48,6 +48,13 @@
   color: white;
 }
 
+.line {
+  position: absolute;
+  background-color: #d6a000;
+  width: 200px;
+  height: 1px;
+}
+
 .circleText {
   font-size: 12px;
   font-weight: bold;

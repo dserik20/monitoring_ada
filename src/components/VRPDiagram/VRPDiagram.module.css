@@ -56,3 +56,10 @@
 .circleSubText {
   font-size: 10px;
 }
+
+.line {
+  position: absolute;
+  background-color: #d6a000;
+  width: 200px;
+  height: 1px;
+}
