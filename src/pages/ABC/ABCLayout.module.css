@@ -50,12 +50,6 @@
   align-items: flex-start;
 }
 
-.detailsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .wellTableContainer {
   grid-area: 2 / 2 / 3 / 3; /* Bottom-right */
 }

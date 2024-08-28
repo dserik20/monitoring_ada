@@ -21,7 +21,8 @@ export default function WellList() {
         {wells.map((well) => (
           <li key={well.id}>
             {well.well} {well.tr_fluid} {well.tr_oil} {well.tr_water}{" "}
-            {well.ecn_status} {well.fon_fluid} {well.fon_oil} {well.zamer}
+            {well.ecn_status} {well.fon_fluid} {well.fon_oil} {well.zamer}{" "}
+            {well.agzu}
           </li>
         ))}
       </ul>

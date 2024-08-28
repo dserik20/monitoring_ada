@@ -13,12 +13,15 @@ function Button({ label, active, onClick }) {
   );
 }
 
-export default function AGZU() {
+export default function AGZU({ wells }) {
   const [activeButton, setActiveButton] = useState("АГЗУ-1");
 
   const handleButtonClick = (label) => {
     setActiveButton(label);
   };
+
+  const filteredWells = wells.filter((well) => well.agzu === activeButton);
+  // filteredWells.map((well) => console.log(well));
 
   return (
     <div className={styles.upperDiv}>
@@ -59,7 +62,7 @@ export default function AGZU() {
           onClick={() => handleButtonClick("МФ-4")}
         />
       </div>
-      <AgzuDiagram />
+      <AgzuDiagram filteredWells={filteredWells} />
     </div>
   );
 }

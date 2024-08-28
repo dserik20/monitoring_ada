@@ -14,8 +14,16 @@
   animation: flicker 2s infinite;
 }
 
-.wellCard {
+.orangeCard {
+  background-color: orange;
+}
+
+.grayCard {
   background-color: #50505a;
+}
+
+.wellCard {
+  /* background-color: #50505a; */
   /* width: 100px; */
   /* height: 60px; */
   display: flex;

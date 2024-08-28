@@ -3,7 +3,7 @@ import Modal from "./Modal/Modal";
 import AGZU from "./AGZU/AGZU";
 import Grid from "./Grid/Grid";
 import AgzuDiagram from "./AgzuDiagram/AgzuDiagram";
-import ABCChart from "./ABCChart/ABCChart";
+import ABCChart from "./AmChart/AmChart";
 
 const ModalTest = () => {
   const [showModal, setShowModal] = useState(false);

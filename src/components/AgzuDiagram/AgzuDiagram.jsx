@@ -1,106 +1,29 @@
 import React from "react";
 import styles from "./AgzuDiagram.module.css";
 import SchemeAGZU from "../../data/Diagrams/SchemeAGZU.svg";
-import Box from "../Box/Box"; // Import the new Box component
+import Box from "../Box/Box"; // Import the Box component
 
-export default function AgzuDiagram() {
+export default function AgzuDiagram({ filteredWells }) {
+  const boxes = new Array(14).fill(null);
+
+  filteredWells.forEach((well) => {
+    boxes[well.otvod - 1] = well; // otvod values are 1-based, so subtract 1
+  });
+
   return (
     <div className={styles.container}>
       <img src={SchemeAGZU} alt="Diagram" className={styles.svgImage} />
       <div className={styles.overlay}>
-        <Box boxText1="BSK_0123" boxText2="0.00" top={65} left={6} number={1} />
-        <Box
-          boxText1="BSK_0111"
-          boxText2="5.00"
-          top={20}
-          left={15}
-          number={2}
-        />
-        <Box
-          boxText1="BSK_0060"
-          boxText2="12.00"
-          top={65}
-          left={206}
-          number={3}
-        />
-        <Box
-          boxText1="BSK_0115"
-          boxText2="8.00"
-          top={65}
-          left={309}
-          number={4}
-        />
-        <Box
-          boxText1="BSK_0110"
-          boxText2="47.00"
-          top={65}
-          left={406}
-          number={5}
-        />
-        <Box
-          boxText1="BSK_0110"
-          boxText2="47.00"
-          top={65}
-          left={506}
-          number={6}
-        />
-        <Box
-          boxText1="BSK_0110"
-          boxText2="47.00"
-          top={65}
-          left={606}
-          number={7}
-        />
-
-        <Box
-          boxText1="BSK_0105"
-          boxText2="24.02"
-          top={275}
-          left={6}
-          number={8}
-        />
-        <Box
-          boxText1="BSK_0109"
-          boxText2="10.63"
-          top={275}
-          left={106}
-          number={9}
-        />
-        <Box
-          boxText1="BSK_0128"
-          boxText2="26.00"
-          top={275}
-          left={206}
-          number={10}
-        />
-        <Box
-          boxText1="BSK_0106"
-          boxText2="9.57"
-          top={275}
-          left={309}
-          number={11}
-        />
-        <Box
-          boxText1="BSK_0106"
-          boxText2="9.57"
-          top={275}
-          left={406}
-          number={12}
-        />
-        <Box
-          boxText1="BSK_0106"
-          boxText2="9.57"
-          top={275}
-          left={506}
-          number={13}
-        />
-        <Box
-          boxText1="BSK_0106"
-          boxText2="9.57"
-          top={275}
-          left={606}
-          number={14}
-        />
+        {boxes.map((well, index) => (
+          <Box
+            key={index}
+            boxText1={well?.well || ""}
+            boxText2={well?.tr_fluid?.toFixed(2) || ""}
+            top={index < 7 ? 65 : 275} // Adjust top based on index (first 7 on top row, next 7 on bottom row)
+            left={6 + (index % 7) * 100} // Distribute evenly across the width
+            number={index + 1} // Box number (1-based index)
+          />
+        ))}
 
         {/* Central circle */}
         <div className={styles.circle} style={{ top: "165px", left: "303px" }}>

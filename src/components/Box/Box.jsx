@@ -5,7 +5,7 @@ export default function Box({ boxText1, boxText2, top, left, number }) {
   return (
     <div
       className={styles.boxContainer}
-      style={{ top: `${top}%`, left: `${left}%` }}
+      style={{ top: `${top}px`, left: `${left}px` }}
     >
       <div className={styles.box}>
         <div className={styles.boxText}>{boxText1}</div>

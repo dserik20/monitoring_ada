@@ -1,23 +1,10 @@
 import React from "react";
 import styles from "./Grid.module.css";
 import WellCard from "../WellCard/WellCard.jsx";
-import { useState, useEffect } from "react";
-import { fetchWells } from "../../axios/wellService.js";
+// import { useState, useEffect } from "react";
 import { cardsData } from "../../data/cardsData.js";
 
-export default function Grid() {
-  const [wells, setWells] = useState([]);
-
-  useEffect(() => {
-    fetchWells()
-      .then((response) => {
-        setWells(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the wells!", error);
-      });
-  }, []);
-
+export default function Grid({ wells }) {
   return (
     <div className={styles.gridContainer}>
       {wells.map((well, index) => (
@@ -28,7 +15,6 @@ export default function Grid() {
           zamer={well.zamer}
           tr_oil={well.tr_oil}
           tr_water={well.tr_water}
-          status={well.ecn_status}
         />
       ))}
     </div>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { fetchWells } from "../../axios/wellService";
 import styles from "./AppLayout.module.css";
 import Chart from "../../components/Chart/Chart";
 import Grid from "../../components/Grid/Grid";
@@ -12,6 +13,17 @@ import KPI from "../../components/KPI/KPI";
 
 export default function AppLayout() {
   const [fond, setFond] = React.useState(0);
+  const [wells, setWells] = useState([]);
+
+  useEffect(() => {
+    fetchWells()
+      .then((response) => {
+        setWells(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the wells!", error);
+      });
+  }, []);
 
   return (
     <div className={styles.app}>
@@ -25,16 +37,25 @@ export default function AppLayout() {
         </div>
         <div className={styles.gridAndDetailsContainer}>
           <div className={styles.legendsAndDetailsContainer}>
-            <Legends />
-            <div className={styles.detailsContainer}>
-              <SelectFond setFond={setFond} />
-              <Details />
-            </div>
+            <Legends
+              leftTop={"Номер скважины (XXX_xxxx)"}
+              rightTop={"Тех. режим по нефти (т/сут)"}
+              middle={"Замер по ТМ"}
+              leftBottom={"Тех. режим по жидкости (м3/сут)"}
+              rightBottom={"Обводненность(%)"}
+            />
+            <SelectFond setFond={setFond} />
+            <Details
+              leftTop={"-30% откл. от ТР"}
+              rightTop={"15% прев. над ТР"}
+              leftBottom={"более 30%"}
+              rightBottom={"в пределах нормы"}
+            />
           </div>
-          <Grid />
+          <Grid wells={wells} />
         </div>
         <div className={styles.agzuContainer}>
-          {fond === 0 ? <AGZU /> : <VRP />}
+          {fond === 0 ? <AGZU wells={wells} /> : <VRP />}
         </div>
       </div>
     </div>

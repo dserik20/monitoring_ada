@@ -46,14 +46,8 @@
 
 .legendsAndDetailsContainer {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   align-items: flex-start;
-}
-
-.detailsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .agzuContainer {

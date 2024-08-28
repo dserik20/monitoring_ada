@@ -1,0 +1,37 @@
+.customTooltip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.tooltipItem {
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tooltipGray {
+  background-color: #888888;
+}
+
+.tooltipRed {
+  background-color: #b22222;
+}
+
+.tooltipGreen {
+  background-color: #228b22;
+}
+
+.tooltipDate {
+  background-color: #1e90ff;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-left: auto;
+}
