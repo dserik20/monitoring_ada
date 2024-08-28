@@ -12,7 +12,7 @@ import VRP from "../../components/VRP/VRP";
 import KPI from "../../components/KPI/KPI";
 
 export default function AppLayout() {
-  const [fond, setFond] = React.useState(0);
+  const [fond, setFond] = useState(0);
   const [wells, setWells] = useState([]);
 
   useEffect(() => {
@@ -24,6 +24,14 @@ export default function AppLayout() {
         console.error("There was an error fetching the wells!", error);
       });
   }, []);
+
+  const fieldMappings = {
+    leftTop: "well",
+    rightTop: "tr_fluid",
+    middle: "zamer",
+    leftBottom: "tr_oil",
+    rightBottom: "tr_water",
+  };
 
   return (
     <div className={styles.app}>
@@ -52,7 +60,7 @@ export default function AppLayout() {
               rightBottom={"в пределах нормы"}
             />
           </div>
-          <Grid wells={wells} />
+          <Grid wells={wells} fieldMappings={fieldMappings} />
         </div>
         <div className={styles.agzuContainer}>
           {fond === 0 ? <AGZU wells={wells} /> : <VRP />}

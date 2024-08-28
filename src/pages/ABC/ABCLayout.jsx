@@ -22,13 +22,23 @@ export default function ABCLayout() {
   useEffect(() => {
     fetchWellsABC()
       .then((response) => {
-        setWells(response.data);
-        console.log(response.data);
+        const wellsData = response.data;
+        setWells(wellsData);
+        const filtered = wells.filter((well) => well.well === "BSK_0002");
+        setSelectedWell(filtered);
       })
       .catch((error) => {
         console.error("There was an error fetching the wells!", error);
       });
   }, []);
+
+  const fieldMappings = {
+    leftTop: "well",
+    rightTop: "tm_fluid_prev",
+    middle: "tm_fluid",
+    leftBottom: "tm_fluid",
+    rightBottom: "tm_water",
+  };
 
   return (
     <div className={styles.app}>
@@ -56,7 +66,7 @@ export default function ABCLayout() {
               rightBottom={"от 0 до 20%"}
             />
           </div>
-          {/* <Grid wells={wells} /> */}
+          <Grid wells={wells} fieldMappings={fieldMappings} />
         </div>
         <div className={styles.wellTableContainer}>
           <WellTable wells={wells} onWellClick={handleWellClick} />

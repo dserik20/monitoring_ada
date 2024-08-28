@@ -2,76 +2,63 @@ import React, { useState, useLayoutEffect } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import am5themes_Dark from "@amcharts/amcharts5/themes/Dark";
 import Slider from "react-slider";
-import styles from "./AmChart.module.css"; // Importing the CSS module
+import styles from "./AmChart.module.css";
 
-const ABCChart = () => {
-  const [currentYear, setCurrentYear] = useState(1950); // State to track the current year
+const AmChart = () => {
+  const [currentYear, setCurrentYear] = useState(1950);
 
   useLayoutEffect(() => {
-    let root = am5.Root.new("chartdiv");
+    let root = am5.Root.new("yearlyChartDiv");
 
-    root.container.set(
-      "background",
-      am5.Rectangle.new(root, {
-        fill: am5.color(0x2d2d32),
-      })
-    );
+    // Dispose of the amCharts logo
+    root._logo.dispose();
 
-    root.setThemes([am5themes_Animated.new(root)]);
+    // Apply themes
+    root.setThemes([am5themes_Animated.new(root), am5themes_Dark.new(root)]);
 
+    // Create chart
     let chart = root.container.children.push(
       am5xy.XYChart.new(root, {
         panX: true,
         panY: true,
-        wheelX: "panX",
-        wheelY: "zoomX",
+        wheelY: "zoomXY",
         pinchZoomX: true,
+        pinchZoomY: true,
       })
     );
+
+    // Create axes
     let xAxis = chart.xAxes.push(
       am5xy.ValueAxis.new(root, {
         min: -100,
         max: 100,
-        renderer: am5xy.AxisRendererX.new(root, {
-          minGridDistance: 30,
-        }),
+        renderer: am5xy.AxisRendererX.new(root, { minGridDistance: 50 }),
+        tooltip: am5.Tooltip.new(root, {}),
       })
     );
-    xAxis.get("renderer").labels.template.setAll({
-      fill: am5.color(0xffffff), // Set label color to white
-    });
-    xAxis.get("renderer").grid.template.setAll({
-      stroke: am5.color(0xffffff), // Set grid line color to white
-      strokeOpacity: 0.5,
-    });
 
     let yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
         min: -100,
         max: 100,
         renderer: am5xy.AxisRendererY.new(root, {}),
+        tooltip: am5.Tooltip.new(root, {}),
       })
     );
-    yAxis.get("renderer").labels.template.setAll({
-      fill: am5.color(0xffffff),
-    });
-    yAxis.get("renderer").grid.template.setAll({
-      stroke: am5.color(0xffffff),
-      strokeOpacity: 0.5,
-    });
 
-    const colors = ["#CC9933 ", "#E9DB9C", "#64B3B6", "#85BFC8"];
-
+    // Define color fills for areas
+    const colors = [0xe3853c, 0x48b2b7, 0x91d1da, 0xe8c634];
     const areas = [
-      { x1: -100, y1: 0, x2: 0, y2: 100, color: colors[0] }, // Top-left
-      { x1: 0, y1: 0, x2: 100, y2: 100, color: colors[1] }, // Top-right
-      { x1: -100, y1: -100, x2: 0, y2: 0, color: colors[2] }, // Bottom-left
-      { x1: 0, y1: -100, x2: 100, y2: 0, color: colors[3] }, // Bottom-right
+      { x1: -200, y1: 0, x2: 0, y2: 200, color: colors[0] },
+      { x1: -200, y1: 0, x2: 0, y2: -200, color: colors[1] },
+      { x1: 200, y1: 0, x2: 0, y2: -200, color: colors[2] },
+      { x1: 200, y1: 0, x2: 0, y2: 200, color: colors[3] },
     ];
 
     areas.forEach((area) => {
-      let areaSeries = chart.series.push(
+      let series = chart.series.push(
         am5xy.LineSeries.new(root, {
           xAxis: xAxis,
           yAxis: yAxis,
@@ -81,10 +68,10 @@ const ABCChart = () => {
         })
       );
 
-      areaSeries.fills.template.setAll({ fillOpacity: 0.8, visible: true });
-      areaSeries.strokes.template.set("forceHidden", true);
+      series.fills.template.setAll({ fillOpacity: 0.9, visible: true });
+      series.strokes.template.set("forceHidden", true);
 
-      areaSeries.data.setAll([
+      series.data.setAll([
         { ax: area.x1, ay: area.y1 },
         { ax: area.x2, ay: area.y1 },
         { ax: area.x2, ay: area.y2 },
@@ -92,56 +79,164 @@ const ABCChart = () => {
       ]);
     });
 
-    // Create the series for the bubbles
+    // Prepare data
+    let yearData = {};
+    let firstYear = 1950;
+    let lastYear = 2022;
+    for (let year = firstYear; year <= lastYear; year++) {
+      let data = [];
+      yearData[year] = data;
+
+      for (let i = 0; i < 50; i++) {
+        if (year === firstYear) {
+          data.push({
+            x: Math.round(Math.random() * 100 - 90),
+            y: Math.round(Math.random() * 100 - 90),
+            value: Math.round(Math.random() * 1000),
+          });
+        } else {
+          let previous = yearData[year - 1][i];
+          data.push({
+            x: previous.x + Math.round(Math.random() * 5 - 2 + i / 50),
+            y: previous.y + Math.round(Math.random() * 5 - 2 + i / 50),
+            value: Math.abs(
+              previous.value + Math.round(Math.random() * 100 - 45)
+            ),
+          });
+        }
+      }
+    }
+
+    // Create series
     let series = chart.series.push(
       am5xy.LineSeries.new(root, {
         calculateAggregates: true,
         xAxis: xAxis,
         yAxis: yAxis,
-        valueXField: "x",
         valueYField: "y",
+        valueXField: "x",
         valueField: "value",
-        tooltipText: "{valueX}, {valueY}: [bold]{value}[/]",
       })
     );
 
     series.strokes.template.set("visible", false);
 
-    series.bullets.push(() => {
+    let circleTemplate = am5.Template.new({});
+    series.bullets.push(function () {
       return am5.Bullet.new(root, {
-        sprite: am5.Circle.new(root, {
-          radius: 10,
-          fillOpacity: 0.8,
-          fill: am5.color(0x000000),
-        }),
+        sprite: am5.Circle.new(
+          root,
+          {
+            radius: 5,
+            fill: am5.color(0x000000),
+            fillOpacity: 0.6,
+            tooltipText: "x: {valueX} y:{valueY} value: {value}",
+          },
+          circleTemplate
+        ),
       });
     });
 
-    let data = [
-      { x: -70, y: -20, value: 50, time: 1950 },
-      { x: -50, y: 40, value: 80, time: 1960 },
-      { x: 0, y: -50, value: 120, time: 1970 },
-      { x: 30, y: 20, value: 150, time: 1980 },
-      { x: 60, y: 30, value: 180, time: 1990 },
-      { x: 90, y: 70, value: 200, time: 2000 },
-    ];
+    series.set("heatRules", [
+      {
+        target: circleTemplate,
+        min: 3,
+        max: 35,
+        dataField: "value",
+        key: "radius",
+        maxValue: 2000,
+      },
+    ]);
 
-    // Update data when the year changes
-    let updateData = (year) => {
-      let newData = data.map((d) => ({
-        x: d.x + (Math.random() - 0.5) * 10,
-        y: d.y + (Math.random() - 0.5) * 10,
-        value: d.value,
-        time: year,
-      }));
-      series.data.setAll(newData);
-    };
+    chart.set(
+      "cursor",
+      am5xy.XYCursor.new(root, {
+        xAxis: xAxis,
+        yAxis: yAxis,
+      })
+    );
 
-    updateData(currentYear); // Initial data set
+    let label = chart.plotContainer.children.push(
+      am5.Label.new(root, {
+        text: currentYear.toString(),
+        fontSize: "5em",
+        fill: am5.color(0x000000),
+        opacity: 0.3,
+      })
+    );
 
-    // Hide the amCharts logo
-    root._logo.dispose();
+    // Slider and Play Button
+    let container = chart.plotContainer.children.push(
+      am5.Container.new(root, {
+        y: am5.p100,
+        centerX: am5.p50,
+        centerY: am5.p100,
+        x: am5.p50,
+        width: am5.percent(90),
+        layout: root.horizontalLayout,
+        paddingBottom: 10,
+      })
+    );
 
+    let playButton = container.children.push(
+      am5.Button.new(root, {
+        themeTags: ["play"],
+        centerY: am5.p50,
+        marginRight: 20,
+        icon: am5.Graphics.new(root, {
+          themeTags: ["icon"],
+        }),
+      })
+    );
+
+    playButton.events.on("click", function () {
+      if (!playButton.get("active")) {
+        slider.animate({
+          key: "start",
+          to: 1,
+          duration: 15000 * (1 - slider.get("start")),
+        });
+      }
+      playButton.set("active", !playButton.get("active"));
+    });
+
+    let slider = container.children.push(
+      am5.Slider.new(root, {
+        orientation: "horizontal",
+        start: 0,
+        centerY: am5.p50,
+      })
+    );
+
+    slider.on("start", function (start) {
+      if (start === 1) {
+        playButton.set("active", false);
+      }
+    });
+
+    slider.events.on("rangechanged", function () {
+      updateSeriesData(
+        firstYear + Math.round(slider.get("start", 0) * (lastYear - firstYear))
+      );
+    });
+
+    function updateSeriesData(year) {
+      if (currentYear !== year) {
+        setCurrentYear(year);
+        let data = yearData[year];
+
+        series.data.setAll(data);
+        label.set("text", year.toString());
+      }
+    }
+
+    series.data.setAll(yearData[currentYear]);
+
+    // Make stuff animate on load
+    series.appear(1000);
+    chart.appear(1000, 100);
+
+    // Cleanup on component unmount
     return () => {
       root.dispose();
     };
@@ -149,22 +244,9 @@ const ABCChart = () => {
 
   return (
     <div>
-      <div id="chartdiv" className={styles.chart}></div>
-      <Slider
-        min={1950}
-        max={2000}
-        step={1}
-        value={currentYear}
-        onChange={(value) => setCurrentYear(value)}
-        renderThumb={(props, state) => (
-          <div {...props} data-content={state.valueNow}></div>
-        )}
-        className={styles.slider}
-        thumbClassName={styles.sliderThumb}
-        trackClassName={styles.sliderTrack}
-      />
+      <div id="yearlyChartDiv" className={styles.chart}></div>
     </div>
   );
 };
 
-export default ABCChart;
+export default AmChart;
