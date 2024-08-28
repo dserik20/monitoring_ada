@@ -24,7 +24,7 @@ export default function ABCLayout() {
       .then((response) => {
         const wellsData = response.data;
         setWells(wellsData);
-        const filtered = wells.filter((well) => well.well === "BSK_0002");
+        const filtered = wellsData.filter((well) => well.well === "BSK_0002");
         setSelectedWell(filtered);
       })
       .catch((error) => {
@@ -40,36 +40,50 @@ export default function ABCLayout() {
     rightBottom: "tm_water",
   };
 
+  const calculateMiddleValue = (rightTop, leftBottom) => {
+    return rightTop - leftBottom; // Calculate the difference
+  };
+
   return (
     <div className={styles.app}>
       <AppNav />
-      <div className={styles.gridContainer}>
-        <div className={styles.chartContainer}>
-          <AmChart />
+      <div className={styles.mainSection}>
+        {/* First Row */}
+        <div className={styles.row}>
+          <div className={styles.container}>
+            <AmChart />
+          </div>
+          <div className={styles.container}>
+            <AChart selectedWell={selectedWell} />
+          </div>
         </div>
-        <div className={styles.graphContainer}>
-          <AChart selectedWell={selectedWell} />
-        </div>
-        <div className={styles.gridAndDetailsContainer}>
-          <div className={styles.legendsAndDetailsContainer}>
-            <Legends
-              leftTop={"Номер скважины"}
-              rightTop={"Предыдущий замер"}
-              middle={"Разница замера"}
-              leftBottom={"Последний замер"}
-              rightBottom={"Лаб. обводненность"}
-            />
-            <Details
-              leftTop={"от 20% до 50%"}
-              rightTop={"Выше 50%"}
-              leftBottom={"Отрицательная разница"}
-              rightBottom={"от 0 до 20%"}
+        {/* Second Row */}
+        <div className={styles.row}>
+          <div className={styles.container}>
+            <div className={styles.legendsAndDetailsContainer}>
+              <Legends
+                leftTop={"Номер скважины"}
+                rightTop={"Предыдущий замер"}
+                middle={"Разница замера"}
+                leftBottom={"Последний замер"}
+                rightBottom={"Лаб. обводненность"}
+              />
+              <Details
+                leftTop={"от 20% до 50%"}
+                rightTop={"Выше 50%"}
+                leftBottom={"Отрицательная разница"}
+                rightBottom={"от 0 до 20%"}
+              />
+            </div>
+            <Grid
+              wells={wells}
+              fieldMappings={fieldMappings}
+              calculateMiddleValue={calculateMiddleValue}
             />
           </div>
-          <Grid wells={wells} fieldMappings={fieldMappings} />
-        </div>
-        <div className={styles.wellTableContainer}>
-          <WellTable wells={wells} onWellClick={handleWellClick} />
+          <div className={`${styles.container} ${styles.wellTableContainer}`}>
+            <WellTable wells={wells} onWellClick={handleWellClick} />
+          </div>
         </div>
       </div>
     </div>

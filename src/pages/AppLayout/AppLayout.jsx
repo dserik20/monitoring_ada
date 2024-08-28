@@ -36,34 +36,40 @@ export default function AppLayout() {
   return (
     <div className={styles.app}>
       <AppNav />
-      <div className={styles.gridContainer}>
-        <div className={styles.chartContainer}>
-          <Chart />
-        </div>
-        <div className={styles.oilLossContainer}>
-          <KPI />
-        </div>
-        <div className={styles.gridAndDetailsContainer}>
-          <div className={styles.legendsAndDetailsContainer}>
-            <Legends
-              leftTop={"Номер скважины (XXX_xxxx)"}
-              rightTop={"Тех. режим по нефти (т/сут)"}
-              middle={"Замер по ТМ"}
-              leftBottom={"Тех. режим по жидкости (м3/сут)"}
-              rightBottom={"Обводненность(%)"}
-            />
-            <SelectFond setFond={setFond} />
-            <Details
-              leftTop={"-30% откл. от ТР"}
-              rightTop={"15% прев. над ТР"}
-              leftBottom={"более 30%"}
-              rightBottom={"в пределах нормы"}
-            />
+      <div className={styles.mainSection}>
+        <div className={styles.row}>
+          <div className={styles.container}>
+            <Chart />
           </div>
-          <Grid wells={wells} fieldMappings={fieldMappings} />
+          <div className={styles.container}>
+            <KPI />
+          </div>
         </div>
-        <div className={styles.agzuContainer}>
-          {fond === 0 ? <AGZU wells={wells} /> : <VRP />}
+        <div className={styles.row}>
+          <div
+            className={`${styles.container} ${styles.gridAndDetailsContainer}`}
+          >
+            <div className={styles.legendsAndDetailsContainer}>
+              <Legends
+                leftTop={"Номер скважины (XXX_xxxx)"}
+                rightTop={"Тех. режим по нефти (т/сут)"}
+                middle={"Замер по ТМ"}
+                leftBottom={"Тех. режим по жидкости (м3/сут)"}
+                rightBottom={"Обводненность(%)"}
+              />
+              <SelectFond setFond={setFond} />
+              <Details
+                leftTop={"-30% откл. от ТР"}
+                rightTop={"15% прев. над ТР"}
+                leftBottom={"более 30%"}
+                rightBottom={"в пределах нормы"}
+              />
+            </div>
+            <Grid wells={wells} fieldMappings={fieldMappings} />
+          </div>
+          <div className={styles.container}>
+            {fond === 0 ? <AGZU wells={wells} /> : <VRP />}
+          </div>
         </div>
       </div>
     </div>

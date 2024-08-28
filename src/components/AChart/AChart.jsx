@@ -75,7 +75,7 @@ export default function AChart({ selectedWell }) {
 
   return (
     <div>
-      <div style={{ display: "flex", gap: "5px" }}>
+      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
         <input
           type="radio"
           id="liquid"
@@ -109,7 +109,7 @@ export default function AChart({ selectedWell }) {
         <Legend
           wrapperStyle={{
             position: "relative",
-            bottom: 15,
+            bottom: 30,
           }}
         />
         <Line
