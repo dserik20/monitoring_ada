@@ -63,6 +63,13 @@ export default function Chart() {
     oil: [],
   });
 
+  const formatYAxis = (tickItem) => {
+    if (Math.abs(tickItem) >= 1000) {
+      return `${(tickItem / 1000).toFixed(1)}k`;
+    }
+    return tickItem;
+  };
+
   useEffect(() => {
     fetch2Hours()
       .then((response) => {
@@ -168,7 +175,7 @@ export default function Chart() {
       >
         <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
         <XAxis dataKey="name" tick={{ fill: "#ffffff" }} />
-        <YAxis tick={{ fill: "#ffffff" }} />
+        <YAxis tick={{ fill: "#ffffff" }} tickFormatter={formatYAxis} />
         <Tooltip content={<CustomTooltip />} />
         <Legend />
         <Line

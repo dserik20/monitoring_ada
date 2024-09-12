@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { fetchWells } from "../../axios/wellService";
 import styles from "./AppLayout.module.css";
 import Chart from "../../components/Chart/Chart";
@@ -10,21 +10,10 @@ import SelectFond from "../../components/SelectFond/SelectFond";
 import AGZU from "../../components/AGZU/AGZU";
 import VRP from "../../components/VRP/VRP";
 import KPI from "../../components/KPI/KPI";
+import { WellsContext } from "../../states/WellsContext";
 
 export default function AppLayout() {
-  const [fond, setFond] = useState(0);
-  const [wells, setWells] = useState([]);
-
-  useEffect(() => {
-    fetchWells()
-      .then((response) => {
-        setWells(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the wells!", error);
-      });
-  }, []);
-
+  const { fond, setFond, wells, setWells } = useContext(WellsContext);
   const fieldMappings = {
     leftTop: "well",
     rightTop: "tr_fluid",

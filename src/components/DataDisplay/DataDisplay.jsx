@@ -1,26 +1,22 @@
 import React, { useState } from "react";
+import { fetchLast10Wells } from "../../axios/wellService";
 import styles from "./DataDisplay.module.css";
 import PumpIcon from "../../assets/hb1.png";
 import Modal from "../Modal/Modal";
 import ResponsiveTable from "../ResponsiveTable/ResponsiveTable";
 
-export default function DataDisplay({
-  label,
-  value,
-  onClick,
-  clickable = false,
-}) {
+export default function DataDisplay({ label, value, clickable = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState([]);
 
   const handleClick = async () => {
     if (!clickable) return;
-
-    if (onClick) {
+    else {
       try {
-        const data = await onClick(); // Execute the passed function to fetch data
-        setData(data);
-        setIsModalOpen(true); // Open the modal
+        const response = await fetchLast10Wells();
+        console.log(response.data);
+        setData(response.data);
+        setIsModalOpen(true);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

@@ -21,7 +21,7 @@ export const fetchLast10Wells = () => {
 };
 
 export const fetchWellData = (wellName) => {
-  return api.get(`/api/well/data`, {
+  return api.get(`/well/data`, {
     params: {
       well: wellName,
     },

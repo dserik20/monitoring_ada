@@ -2,6 +2,7 @@
   width: 100%;
   height: 400px;
   background-color: #242424;
+  /* transition: all 0.5s ease-in-out; */
 }
 
 .slider {
@@ -14,6 +15,7 @@
   background: #ddd;
   height: 6px;
   border-radius: 3px;
+  /* transition: background 0.5s ease-in-out; */
 }
 
 .sliderThumb {
@@ -24,13 +26,7 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 12px;
-  position: relative;
   top: -10px;
-  text-align: center;
-  line-height: 20px;
 }
 
 .sliderThumb::after {

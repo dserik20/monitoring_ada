@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { fetchWellsABC } from "../../axios/wellService";
+import React, { useState, useEffect, useContext } from "react";
+import { fetchWellsABC, fetchWellData } from "../../axios/wellService";
 import AppNav from "../../components/AppNav/AppNav";
 import Legends from "../../components/Legends/Legends";
 import Details from "../../components/Details/Details";
@@ -8,40 +8,30 @@ import styles from "./ABCLayout.module.css";
 import AmChart from "../../components/AmChart/AmChart";
 import WellTable from "../../components/WellTable/WellTable";
 import AChart from "../../components/AChart/AChart";
+import { WellsABCCOntext } from "../../states/WellsABCContext";
 
 export default function ABCLayout() {
-  const [fond, setFond] = useState(0);
-  const [wells, setWells] = useState([]);
-  const [selectedWell, setSelectedWell] = useState(null);
-
-  const handleWellClick = (wellName) => {
-    const filteredWells = wells.filter((well) => well.well === wellName);
-    setSelectedWell(filteredWells);
-  };
-
-  useEffect(() => {
-    fetchWellsABC()
-      .then((response) => {
-        const wellsData = response.data;
-        setWells(wellsData);
-        const filtered = wellsData.filter((well) => well.well === "BSK_0002");
-        setSelectedWell(filtered);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the wells!", error);
-      });
-  }, []);
+  const {
+    wells,
+    setWells,
+    selectedWell,
+    setSelectedWell,
+    wellsGrid,
+    setWellsGrid,
+    wellsChart,
+    setWellsChart,
+  } = useContext(WellsABCCOntext);
 
   const fieldMappings = {
     leftTop: "well",
-    rightTop: "tm_fluid_prev",
+    rightTop: "tm_fluid",
     middle: "tm_fluid",
-    leftBottom: "tm_fluid",
+    leftBottom: "tm_fluid_prev",
     rightBottom: "tm_water",
   };
 
   const calculateMiddleValue = (rightTop, leftBottom) => {
-    return rightTop - leftBottom; // Calculate the difference
+    return rightTop - leftBottom;
   };
 
   return (
@@ -51,9 +41,9 @@ export default function ABCLayout() {
         {/* First Row */}
         <div className={styles.row}>
           <div className={styles.container}>
-            <AmChart />
+            <AmChart wellData={wellsChart} />
           </div>
-          <div className={styles.container}>
+          <div className={styles.containerX}>
             <AChart selectedWell={selectedWell} />
           </div>
         </div>
@@ -76,13 +66,13 @@ export default function ABCLayout() {
               />
             </div>
             <Grid
-              wells={wells}
+              wells={wellsGrid}
               fieldMappings={fieldMappings}
               calculateMiddleValue={calculateMiddleValue}
             />
           </div>
           <div className={`${styles.container} ${styles.wellTableContainer}`}>
-            <WellTable wells={wells} onWellClick={handleWellClick} />
+            <WellTable wells={wells} setSelectedWell={setSelectedWell} />
           </div>
         </div>
       </div>

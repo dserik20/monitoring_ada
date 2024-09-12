@@ -25,7 +25,7 @@ export default function AppNav() {
   const handleDataDisplayClick = async () => {
     try {
       const response = await fetchLast10Wells();
-      return response.data; // No transformation needed; data is ready to display
+      return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -67,11 +67,7 @@ export default function AppNav() {
         </div>
         <div className={styles.divider} />
         <div className={styles.dataDisplayContainer}>
-          <DataDisplay
-            label="10 последних ГТМ/КРС"
-            onClick={handleDataDisplayClick}
-            clickable={true}
-          />
+          <DataDisplay label="10 последних ГТМ/КРС" clickable={true} />
         </div>
       </div>
     </div>

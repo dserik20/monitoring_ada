@@ -53,6 +53,7 @@ export default function AChart({ selectedWell }) {
         tm_fluid: Math.floor(well.tm_fluid || 0),
         tm_oil: Math.floor(well.tm_oil || 0),
         tm_water: Math.floor(well.tm_water || 0),
+        well: well.well, // Include the well name
       }));
 
       setData(formattedData);
@@ -70,11 +71,18 @@ export default function AChart({ selectedWell }) {
       tm_oil: item.tm_oil,
       tr_water: item.tr_water,
       tm_water: item.tm_water,
+      well: item.well, // Include the well name in each data item
     }));
   }, [data]);
 
   return (
     <div>
+      {selectedWell && selectedWell[0] && (
+        <h2 style={{ color: "#ffffff", marginBottom: "10px" }}>
+          Скважина: {selectedWell[0].well}
+        </h2>
+      )}
+
       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
         <input
           type="radio"
@@ -107,15 +115,17 @@ export default function AChart({ selectedWell }) {
         <YAxis tick={{ fill: "#ffffff" }} />
         <Tooltip content={<CustomTooltip />} />
         <Legend
-          wrapperStyle={{
-            position: "relative",
-            bottom: 30,
-          }}
+          wrapperStyle={
+            {
+              // position: "relative",
+              // bottom: 30,
+            }
+          }
         />
         <Line
           type="monotone"
           dataKey={type === "liquid" ? "tm_fluid" : "tm_oil"}
-          name={type === "liquid" ? "Жидкость" : "Нефть"}
+          name={"Добыча (АГЗУ)"}
           stroke="#228B22" // Green
         />
         <Line

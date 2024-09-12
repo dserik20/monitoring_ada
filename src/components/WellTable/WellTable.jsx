@@ -1,7 +1,12 @@
 import React from "react";
 import styles from "./WellTable.module.css";
 
-export default function WellTable({ wells, onWellClick }) {
+export default function WellTable({ wells, setSelectedWell }) {
+  const handleWellClick = (wellName) => {
+    const filteredWells = wells.filter((well) => well.well === wellName);
+    setSelectedWell(filteredWells);
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("ru-RU", {
@@ -29,7 +34,7 @@ export default function WellTable({ wells, onWellClick }) {
         </thead>
         <tbody>
           {wells.map((well, index) => (
-            <tr key={index} onClick={() => onWellClick(well.well)}>
+            <tr key={index} onClick={() => handleWellClick(well.well)}>
               <td>{well.well}</td>
               <td>{well.tm_fluid.toFixed(2)}</td>
               <td>{well.tm_fluid_prev.toFixed(2)}</td>

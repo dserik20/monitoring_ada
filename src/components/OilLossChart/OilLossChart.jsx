@@ -39,18 +39,8 @@ const data = [
 
 export default function OilLossChart() {
   return (
-    <BarChart
-      width={500}
-      height={300}
-      data={data}
-      margin={{
-        top: 20,
-        right: 0,
-        left: 0,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" fillOpacity={0.1} />
+    <BarChart width={600} height={400} data={data}>
+      <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
       <XAxis dataKey="name" />
       <YAxis />
       <Bar dataKey="pv" stackId="a" fill="transparent" />

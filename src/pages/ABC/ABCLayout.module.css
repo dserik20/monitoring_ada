@@ -29,6 +29,17 @@
   /* min-width: 0; */
   /* min-height: 0; */
 }
+
+.containerX {
+  flex: 1;
+  background-color: #2d2d32;
+  padding: 5px 20px 20px 20px;
+  border-radius: 5px;
+  overflow: auto;
+  /* min-width: 0; */
+  /* min-height: 0; */
+}
+
 .legendsAndDetailsContainer {
   display: flex;
   gap: 10px;

@@ -1,5 +1,4 @@
 const mysql = require("mysql");
-const xlsx = require("xlsx");
 
 // Establishing the database connection
 const connection = mysql.createConnection({
@@ -13,61 +12,64 @@ connection.connect((err) => {
   if (err) throw err;
   console.log("Connected to the database!");
 
-  // Load the Excel file
-  const workbook = xlsx.readFile("new.xlsx");
+  const addColumnQuery = `ALTER TABLE well_data ADD COLUMN id INT;`;
 
-  // Get the sheet named "Июль 2024"
-  const sheet_name = "Июль 2024";
-  const worksheet = workbook.Sheets[sheet_name];
+  connection.query(addColumnQuery, (err, result) => {
+    if (err && err.code !== "ER_DUP_FIELDNAME") throw err; // Ignore error if column already exists
+    console.log("Added id column to well_data table.");
 
-  // Convert the sheet to JSON without skipping rows
-  const jsonData = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
+    // First query: Initialize the row number variable
+    const setRowNumberQuery = `SET @row_number = 0;`;
 
-  // Iterate over each row
-  jsonData.forEach((row, index) => {
-    // Assuming well_name is in column A (index 0)
-    const well_name = row[1];
+    connection.query(setRowNumberQuery, (err, result) => {
+      if (err) throw err;
 
-    // Get the specific columns
-    const tr_oil = row[25]; // Column Z is 26th in Excel, index 25 in array (zero-based)
-    const tr_fluid = row[26]; // Column AA is 27th in Excel, index 26 in array (zero-based)
-    const tr_water = row[29]; // Column AD is 30th in Excel, index 29 in array (zero-based)
-
-    // Check if all three values are not empty
-    if (tr_oil && tr_fluid && tr_water) {
-      // Format the well name to match the database format (e.g., bsk-2 to BSK_0002)
-      const formatted_well_name = `BSK_${well_name
-        .toString()
-        .toLowerCase()
-        .replace("bsk-", "")
-        .padStart(4, "0")}`;
-
-      // Print the formatted values
-      console.log(
-        `Formatted Well Name: ${formatted_well_name}, tr_oil: ${tr_oil}, tr_fluid: ${tr_fluid}, tr_water: ${tr_water}`
-      );
-
-      // SQL query to update the table
-      const query = `
-        UPDATE n_well_matrix
-        SET tr_fluid = ?, tr_oil = ?, tr_water = ? 
-        WHERE well = ?
+      // Second query: Update the id column with sequential values
+      const updateIdQuery = `
+        UPDATE well_data
+        SET id = (@row_number := @row_number + 1)
+        ORDER BY well
+        LIMIT 83;
       `;
 
-      connection.query(
-        query,
-        [tr_fluid, tr_oil, tr_water, formatted_well_name],
-        (err, result) => {
-          if (err) throw err;
-          console.log(`Updated well: ${formatted_well_name}`);
-        }
-      );
-    }
-  });
+      connection.query(updateIdQuery, (err, result) => {
+        if (err) throw err;
+        console.log("Updated first 83 rows with sequential IDs.");
 
-  // Close the connection after processing
-  connection.end((err) => {
-    if (err) throw err;
-    console.log("Connection closed.");
+        const fetchWellsQuery = `SELECT well FROM n_well_matrix WHERE nagn='0' AND well LIKE 'BSK%' LIMIT 83;`;
+
+        connection.query(fetchWellsQuery, (err, wells) => {
+          if (err) throw err;
+
+          if (wells.length === 0) {
+            console.log("No wells found to update.");
+            connection.end();
+            return;
+          }
+
+          console.log(`Number of wells found: ${wells.length}`);
+
+          wells.forEach((row, index) => {
+            const updateWellDataQuery = `
+              UPDATE well_data 
+              SET field = 'Башенколь', well = '${row.well}'
+              WHERE id = ${index + 1};
+            `;
+
+            connection.query(updateWellDataQuery, (err, updateResult) => {
+              if (err) throw err;
+              console.log(
+                `Updated row with id: ${index + 1} to well: ${row.well}`
+              );
+            });
+          });
+
+          connection.end((err) => {
+            if (err) throw err;
+            console.log("Connection closed.");
+          });
+        });
+      });
+    });
   });
 });
