@@ -13,21 +13,24 @@ export default function WellCard({
   leftBottom,
   rightBottom,
 }) {
-  const { wells, setWellsChart } = useContext(WellsABCCOntext);
+  const location = useLocation();
+
+  const context =
+    location.pathname === "/abc" ? useContext(WellsABCCOntext) : null;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [well, setWell] = useState(null);
-
-  const location = useLocation();
 
   const handleClick = async () => {
     if (location.pathname === "/abc") {
       try {
+        const { wells, setWellsChart } = context; // Use context conditionally here
+
         const response = await fetchWellData(leftTop);
-        const data = response.data; // No need to await this, it's already resolved
+        const data = response.data;
 
         const selected = wells.filter((well) => well.well === leftTop);
         if (selected.length > 0) {
-          setWellsChart(selected); // Only set chart if well is found
+          setWellsChart(selected);
         } else {
           console.warn("No matching well found in wellsChart!");
         }

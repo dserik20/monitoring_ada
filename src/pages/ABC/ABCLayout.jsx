@@ -72,7 +72,7 @@ export default function ABCLayout() {
             />
           </div>
           <div className={`${styles.container} ${styles.wellTableContainer}`}>
-            <WellTable wells={wells} setSelectedWell={setSelectedWell} />
+            <WellTable wells={wellsGrid} setSelectedWell={setSelectedWell} />
           </div>
         </div>
       </div>

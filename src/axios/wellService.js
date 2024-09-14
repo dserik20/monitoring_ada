@@ -27,12 +27,3 @@ export const fetchWellData = (wellName) => {
     },
   });
 };
-
-// export const fetchWells = (wellType = "production", fieldId = 1) => {
-//   return api.get(`/wells`, {
-//     params: {
-//       wellType: wellType,
-//       fieldId: fieldId,
-//     },
-//   });
-// };s

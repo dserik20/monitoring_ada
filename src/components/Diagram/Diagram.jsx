@@ -3,11 +3,11 @@ import SchemeMain from "../../data/Diagrams/SchemeMain.svg";
 import styles from "./Diagram.module.css";
 import Indicator from "../Indicator/Indicator";
 import LabelBox from "../LabelBox/LabelBox";
-import AGZU from "../AGZU/AGZU";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import Nasos from "../Nasosy/Nasos";
 import Table from "../Table/Table";
 import SimpleTable from "../SimpleTable/SimpleTable";
+import AppNav from "../AppNav/AppNav";
 
 export default function Diagram() {
   const tableData = [
@@ -25,20 +25,25 @@ export default function Diagram() {
     { value: "635 665", unit: "т" },
     { value: "73.13", unit: "%" },
   ];
+
   return (
     <div className={styles.container}>
+      <div className={styles.navWrapper}>
+        <AppNav />
+      </div>
+
       <img src={SchemeMain} alt="Diagram" className={styles.svgImage} />
-      <div className={`styles`.overlay}>
+      <div className={styles.overlay}>
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "28px", left: "167px" }}
+          style={{ top: "104px", left: "167px" }}
         >
           КУУГ
         </div>
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "98px", left: "200px" }}
+          style={{ top: "174px", left: "200px" }}
         >
           <Indicator indicatorNumber={0.0} indicatorUnits={"м3/ч"} />
           <LabelBox label={"Расходомер"} width={30} height={3} fontSize={5} />
@@ -46,21 +51,21 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "136px", left: "165px" }}
+          style={{ top: "212px", left: "165px" }}
         >
           ЦППГ
         </div>
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "50px", left: "945px", fontSize: "5px" }}
+          style={{ top: "126px", left: "945px", fontSize: "5px" }}
         >
           ТОО "KEN INTERNATIONAL"
         </div>
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "25px", left: "1250px" }}
+          style={{ top: "101px", left: "1250px" }}
         >
           <LabelBox
             label={"Узел отчета"}
@@ -68,13 +73,12 @@ export default function Diagram() {
             height={5}
             fontSize={10}
           />
-
           <Table data={data} />
         </div>
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "345px", left: "818px" }}
+          style={{ top: "421px", left: "818px" }}
         >
           <SimpleTable data={tableData} />
           <LabelBox label={"Печь"} width={103} height={5} fontSize={10} />
@@ -82,7 +86,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "98px", left: "320px" }}
+          style={{ top: "174px", left: "320px" }}
         >
           <Indicator indicatorNumber={0.0} indicatorUnits={"м3/ч"} />
           <LabelBox label={"Расходомер"} width={30} height={3} fontSize={5} />
@@ -90,7 +94,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "70px", left: "595px" }}
+          style={{ top: "146px", left: "595px" }}
         >
           <Nasos numberOfSquares={2} activeIndex={0} width={60} height={50} />
           <LabelBox
@@ -103,7 +107,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "345px", left: "565px" }}
+          style={{ top: "421px", left: "565px" }}
         >
           <Nasos numberOfSquares={2} activeIndex={0} width={60} height={50} />
           <LabelBox
@@ -116,7 +120,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "235px", left: "1086px" }}
+          style={{ top: "311px", left: "1086px" }}
         >
           <Nasos numberOfSquares={2} activeIndex={0} width={60} height={50} />
           <LabelBox
@@ -129,7 +133,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "427px", left: "1235px" }}
+          style={{ top: "503px", left: "1235px" }}
         >
           <Nasos numberOfSquares={4} activeIndex={0} width={30} height={30} />
           <LabelBox
@@ -140,11 +144,10 @@ export default function Diagram() {
           />
         </div>
 
-        {/* Скважины слева  */}
-
+        {/* Скважины слева */}
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "126px", left: "892px", color: "#000" }}
+          style={{ top: "202px", left: "892px", color: "#000" }}
         >
           <ProgressBar
             key={"pbc1L"}
@@ -158,7 +161,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "126px", left: "1077px", color: "#000" }}
+          style={{ top: "202px", left: "1077px", color: "#000" }}
         >
           <ProgressBar
             key={"pbc3L"}
@@ -172,7 +175,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "24px", left: "1077px", color: "#000" }}
+          style={{ top: "100px", left: "1077px", color: "#000" }}
         >
           <ProgressBar
             key={"pbc4L"}
@@ -186,7 +189,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "24px", left: "892px", color: "#000" }}
+          style={{ top: "100px", left: "892px", color: "#000" }}
         >
           <ProgressBar
             key={"pbc2L"}
@@ -200,14 +203,14 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "136px", left: "850px", color: "#000" }}
+          style={{ top: "212px", left: "850px", color: "#000" }}
         >
           РВС-1
         </div>
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "170px",
+            top: "246px",
             left: "850px",
             color: "#000",
             fontSize: "9px",
@@ -218,14 +221,14 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "30px", left: "850px", color: "#000" }}
+          style={{ top: "106px", left: "850px", color: "#000" }}
         >
           РВС-2
         </div>
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "64px",
+            top: "140px",
             left: "850px",
             color: "#000",
             fontSize: "9px",
@@ -236,14 +239,14 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "30px", left: "1035px", color: "#000" }}
+          style={{ top: "106px", left: "1035px", color: "#000" }}
         >
           РВС-4
         </div>
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "64px",
+            top: "140px",
             left: "1035px",
             color: "#000",
             fontSize: "9px",
@@ -254,14 +257,14 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "136px", left: "1035px", color: "#000" }}
+          style={{ top: "212px", left: "1035px", color: "#000" }}
         >
           РВС-3
         </div>
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "170px",
+            top: "246px",
             left: "1035px",
             color: "#000",
             fontSize: "9px",
@@ -270,11 +273,10 @@ export default function Diagram() {
           V 1000м³
         </div>
 
-        {/* Справа скважины */}
-
+        {/* Скважины справа */}
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "348px", left: "1282px", color: "#000" }}
+          style={{ top: "424px", left: "1282px", color: "#000" }}
         >
           <ProgressBar
             key={"pbc1L"}
@@ -288,7 +290,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "245px", left: "1410px", color: "#000" }}
+          style={{ top: "321px", left: "1410px", color: "#000" }}
         >
           <ProgressBar
             key={"pbc3L"}
@@ -302,7 +304,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "348px", left: "1410px", color: "#000" }}
+          style={{ top: "424px", left: "1410px", color: "#000" }}
         >
           <ProgressBar
             key={"pbc4L"}
@@ -316,7 +318,7 @@ export default function Diagram() {
 
         <div
           className={`${styles.box} ${styles.textBox}`}
-          style={{ top: "245px", left: "1282px", color: "#000" }}
+          style={{ top: "321px", left: "1282px", color: "#000" }}
         >
           <ProgressBar
             key={"pbc2L"}
@@ -331,7 +333,7 @@ export default function Diagram() {
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "355px",
+            top: "431px",
             left: "1250px",
             color: "#000",
             fontSize: "7px",
@@ -342,7 +344,7 @@ export default function Diagram() {
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "380px",
+            top: "456px",
             left: "1250px",
             color: "#000",
             fontSize: "7px",
@@ -353,7 +355,7 @@ export default function Diagram() {
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "250px",
+            top: "326px",
             left: "1250px",
             color: "#000",
             fontSize: "7px",
@@ -364,7 +366,7 @@ export default function Diagram() {
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "280px",
+            top: "356px",
             left: "1250px",
             color: "#000",
             fontSize: "7px",
@@ -376,7 +378,7 @@ export default function Diagram() {
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "355px",
+            top: "431px",
             left: "1380px",
             color: "#000",
             fontSize: "7px",
@@ -387,7 +389,7 @@ export default function Diagram() {
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "380px",
+            top: "456px",
             left: "1380px",
             color: "#000",
             fontSize: "7px",
@@ -399,7 +401,7 @@ export default function Diagram() {
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "250px",
+            top: "326px",
             left: "1380px",
             color: "#000",
             fontSize: "7px",
@@ -410,7 +412,7 @@ export default function Diagram() {
         <div
           className={`${styles.box} ${styles.textBox}`}
           style={{
-            top: "280px",
+            top: "356px",
             left: "1380px",
             color: "#000",
             fontSize: "7px",
@@ -422,7 +424,7 @@ export default function Diagram() {
 
       <div
         className={`${styles.box} ${styles.textBox}`}
-        style={{ top: "390px", left: "1020px" }}
+        style={{ top: "466px", left: "1020px" }}
       >
         <Indicator indicatorNumber={69.3} indicatorUnits={"т/ч"} />
         <Indicator indicatorNumber={86.8} indicatorUnits={"м3/ч"} />

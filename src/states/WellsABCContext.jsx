@@ -24,7 +24,7 @@ const WellsABCCOntextProvider = ({ children }) => {
           );
           setWellsChart(wellsData);
           setWellsGrid(wellsGridDate);
-          setWells(wellsData);
+          setWells(wellsGridDate);
 
           const filtered = wellsData.filter((well) => well.well === "BSK_0002");
           if (filtered.length > 0) {

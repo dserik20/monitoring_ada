@@ -13,7 +13,7 @@ const WellsContextProvider = ({ children }) => {
         setWells(response.data);
       })
       .catch((error) => {
-        console.error("There was an error fetching the wells!", error);
+        console.error("There was an error fetching the wells!", error); // Log any errors
       });
   }, []);
 

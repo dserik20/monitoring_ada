@@ -1,11 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
+const path = require("path");
+const port = 3000;
 
 const app = express();
 
 app.use(cors());
 
+// MySQL database connection setup
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -13,17 +16,12 @@ const connection = mysql.createConnection({
   database: "ada",
 });
 
+// API routes
 app.get("/api/wells", (req, res) => {
-  const wellType = req.query.wellType || "production";
-  const fieldId = req.query.fieldId || 1;
-
-  const query = `
-    SELECT * FROM n_well_matrix WHERE well LIKE 'BSK%';
-`;
-
-  connection.query(query, [fieldId, wellType], (error, results) => {
+  const query = `SELECT * FROM n_well_matrix WHERE well LIKE 'BSK%';`;
+  connection.query(query, (error, results) => {
     if (error) throw error;
-    res.json(results);
+    res.json(results || []); // Return the data as JSON
   });
 });
 
@@ -35,23 +33,20 @@ app.get("/api/2hours", (req, res) => {
   `;
   connection.query(query, (error, results) => {
     if (error) throw error;
-    res.json(results);
+    res.json(results || []); // Return the data as JSON
   });
 });
 
 app.get("/api/wells/abc", (req, res) => {
-  const query = `
-    SELECT * from abc_data;
-  `;
+  const query = `SELECT * FROM abc_data;`;
   connection.query(query, (error, results) => {
     if (error) throw error;
-    res.json(results);
+    res.json(results || []); // Return the data as JSON
   });
 });
 
 app.get("/api/well/data", (req, res) => {
   const wellName = req.query.well;
-
   if (!wellName) {
     return res.status(400).json({ error: "Well name is required" });
   }
@@ -72,12 +67,11 @@ app.get("/api/well/data", (req, res) => {
       otvod AS 'Отвод'
     FROM 
      well_data 
-    WHERE 
-    well = '${wellName}';
+    WHERE well = '${wellName}';
   `;
   connection.query(query, (error, results) => {
     if (error) throw error;
-    res.json(results);
+    res.json(results || []); // Return the data as JSON
   });
 });
 
@@ -91,15 +85,20 @@ app.get("/api/well/last10", (req, res) => {
     ORDER BY id DESC 
     LIMIT 10;
   `;
-
   connection.query(query, (error, results) => {
     if (error) {
       return res.status(500).json({ error: "Database query failed" });
     }
-    res.json(results);
+    res.json(results || []); // Return the data as JSON
   });
 });
 
-app.listen(3001, () => {
-  console.log("Server running on port 3001");
+app.use(express.static(path.join(__dirname, "../../dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../dist", "index.html"));
+});
+
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server running on http://26.110.70.236:${port}`);
 });

@@ -9,6 +9,8 @@ import styles from "./AmChart.module.css";
 const AmChart = ({ wellData }) => {
   const chartRef = useRef(null); // Store the chart instance
   const [currentDate, setCurrentDate] = useState(null);
+  const [currentYear, setCurrentYear] = useState(null); // Track current year separately
+  const seriesRef = useRef(null); // Reference to the data series
 
   // Generate unique and sorted dates from wellData
   const dates = Array.from(
@@ -17,16 +19,26 @@ const AmChart = ({ wellData }) => {
     )
   ).sort((a, b) => new Date(a) - new Date(b));
 
-  // Set the initial date on component mount
+  // Set the initial date and year on component mount
   useEffect(() => {
     if (dates.length > 0 && !currentDate) {
       setCurrentDate(dates[0]); // Set the first date once when the component mounts
+      setCurrentYear(new Date(dates[0]).getFullYear()); // Set the year for the initial date
     }
   }, [dates, currentDate]);
 
+  // Update the current year when the date changes
+  useEffect(() => {
+    if (currentDate) {
+      const year = new Date(currentDate).getFullYear();
+      if (year !== currentYear) {
+        setCurrentYear(year); // Only update the year if it has changed
+      }
+    }
+  }, [currentDate, currentYear]);
+
   useLayoutEffect(() => {
-    console.log(wellData);
-    if (!wellData || wellData.length === 0 || !currentDate) {
+    if (!wellData || wellData.length === 0 || !currentDate || !currentYear) {
       return;
     }
 
@@ -52,8 +64,6 @@ const AmChart = ({ wellData }) => {
         pinchZoomY: true,
       })
     );
-
-    // Ensure the gridContainer is behind everything else
     chart.gridContainer.toBack();
 
     // Create X and Y axes
@@ -78,22 +88,16 @@ const AmChart = ({ wellData }) => {
         max: 100,
         renderer: am5xy.AxisRendererY.new(root, {
           inside: true,
-          zIndex: 1000, // Move Y-axis renderer to a higher layer
+          visible: true,
+          zIndex: 1000,
         }),
         tooltip: am5.Tooltip.new(root, {}),
       })
     );
 
-    // Ensure Y-axis labels are rendered on top by adjusting the zIndex
     yAxis.get("renderer").labels.template.setAll({
-      zIndex: 2000, // Bring Y-axis labels to the top of everything
-      textAlign: "center", // Align labels to the center
-      inside: true, // Keep labels inside the chart
-    });
-
-    yAxis.get("renderer").ticks.template.setAll({
-      visible: true,
-      zIndex: 1500, // Bring ticks on top as well
+      zIndex: 200000, // Ensure Y-axis labels appear on top
+      paddingLeft: 300,
     });
 
     yAxis.get("renderer").grid.template.setAll({
@@ -110,6 +114,7 @@ const AmChart = ({ wellData }) => {
       { x1: 50, y1: 50, x2: 100, y2: 100, color: colors[3] },
     ];
 
+    // Create color areas as filled series
     areas.forEach((area) => {
       let series = chart.series.push(
         am5xy.LineSeries.new(root, {
@@ -117,14 +122,15 @@ const AmChart = ({ wellData }) => {
           yAxis: yAxis,
           valueXField: "ax",
           valueYField: "ay",
-          sequencedInterpolation: true,
           fill: am5.color(area.color),
-          interpolationDuration: 1000,
-          interpolationEasing: am5.ease.out(am5.ease.cubic),
         })
       );
 
-      series.fills.template.setAll({ fillOpacity: 0.9, visible: true });
+      series.fills.template.setAll({
+        fillOpacity: 0.5,
+        inside: true,
+        visible: true,
+      });
       series.strokes.template.set("forceHidden", true);
 
       series.data.setAll([
@@ -136,7 +142,7 @@ const AmChart = ({ wellData }) => {
     });
 
     // Create series for data points
-    let series = chart.series.push(
+    const series = chart.series.push(
       am5xy.LineSeries.new(root, {
         calculateAggregates: true,
         xAxis: xAxis,
@@ -199,25 +205,7 @@ const AmChart = ({ wellData }) => {
       })
     );
 
-    // Function to update the series data with smooth animation
-    function updateSeriesData(data) {
-      if (Array.isArray(data)) {
-        const filteredData = data.filter(
-          (item) =>
-            new Date(item.date).toISOString().split("T")[0] === currentDate
-        );
-        series.data.setAll(
-          filteredData.map((item) => ({
-            x: item.tm_water,
-            y: item.tm_oil,
-            value: item.tr_fluid,
-            well: item.well, // Make sure to pass well name here
-          }))
-        );
-        series.appear(1000, 100); // Smooth transition for re-render
-        label.set("text", currentDate);
-      }
-    }
+    seriesRef.current = series; // Store the series for later updates
 
     updateSeriesData(wellData);
 
@@ -227,7 +215,33 @@ const AmChart = ({ wellData }) => {
         chartRef.current.dispose(); // Properly dispose of the chart
       }
     };
-  }, [wellData, currentDate]);
+  }, [wellData, currentYear]); // Trigger re-render only when wellData or currentYear changes
+
+  const updateSeriesData = (data) => {
+    if (Array.isArray(data)) {
+      const filteredData = data.filter(
+        (item) =>
+          new Date(item.date).toISOString().split("T")[0] === currentDate
+      );
+      if (seriesRef.current) {
+        seriesRef.current.data.setAll(
+          filteredData.map((item) => ({
+            x: item.tm_water,
+            y: item.tm_oil,
+            value: item.tr_fluid,
+            well: item.well, // Make sure to pass well name here
+          }))
+        );
+      }
+    }
+  };
+
+  // Trigger update when currentDate changes
+  useEffect(() => {
+    if (wellData && currentDate) {
+      updateSeriesData(wellData);
+    }
+  }, [currentDate, wellData]);
 
   return (
     <div>

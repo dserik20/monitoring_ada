@@ -22,8 +22,6 @@ function App() {
               </WellsContextProvider>
             }
           />
-          {/* <Route index element={<FetchHours />} /> */}
-          {/* <Route index element={<WellList />} /> */}
           <Route
             path="abc"
             element={
